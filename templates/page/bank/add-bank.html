@@ -1,0 +1,51 @@
+{% extends 'layout/__base.html' %}
+{% block body %}
+    <div class="wrapper" id="wrapper">
+        {% include 'component/_navbar.html' %}
+        {% include 'component/_sidebar.html' %}
+        {% include 'component/_bank-form.html' %}
+        {% include 'component/_footer.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("#bank-create-form").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'add-bank' %}',
+                    data: $(this).serialize(),
+                    success: function(data)
+                    {
+                        if (data.error) {
+                            swal({
+                                title: "Error !!!",
+                                text: "Bank Add Request Failed. Please Try Again",
+                                type: "error",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            swal({
+                                title: "Success :)",
+                                text: "Bank Added Successfully.",
+                                type: "success",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = '{% url 'bank-list' %}';
+                            },3000)
+                            {#window.location.href = '{% url 'dashboard' %}';#}
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

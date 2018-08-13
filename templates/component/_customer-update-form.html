@@ -1,0 +1,35 @@
+{% load staticfiles %}
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="col-md-12">
+                    <div class="panel-content">
+                        <h2 class="heading"><i class="fas fa-folder-open"></i> Update Customer</h2>
+                        <form enctype="multipart/form-data" id="customer-update-form" method="post" novalidate action="{% url 'customer-update' id=customer.id  %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Customer Name</label> <span class="text-danger">*</span>
+                                <input value="{{ customer.name }}" type="text" placeholder="Customer Name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Customer Address</label>
+                                <textarea class="form-control" placeholder="Customer Address" name="address" rows="3" cols="30">{{ customer.address }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Person</label> <span class="text-danger">*</span>
+                                <input value="{{ customer.contact_person }}" type="text" placeholder="Contact Person" name="contact_person" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone No</label> <span class="text-danger">*</span>
+                                <input value="{{ customer.phone_no }}" type="text" placeholder="Phone No" name ="phone_no" id="phone_no" class="form-control" required>
+                                <span class="help-block"> 8801*********</span>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="{% url 'customer-list' %}" class="btn btn-danger">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,105 @@
+{% load staticfiles %}
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+                        <h2 class="heading"><i class="fas fa-folder-open"></i> Add Company</h2>
+                        <form enctype="multipart/form-data" id="payment-create-form" method="post" novalidate action="{% url 'add-payment' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Customer Name</label> <span class="text-danger">*</span>
+                                <select required name="customer" id="customer" class="form-control">
+                                    <option value="">Select Customer</option>
+                                    {% for customer in customers %}
+                                        <option value="{{ customer.id }}">{{ customer.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="from-group">
+                                <label>Payment Date</label> <span class="text-danger">*</span>
+                                <input required id="payment_date" name="payment_date" placeholder="Set Payment Date" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="yyyy-mm-dd">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Type</label> <span class="text-danger">*</span>
+                                <select required name="payment_type" id="payment_type" class="form-control">
+                                    <option value="">Select Payment Type</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="EFT">EFT</option>
+                                </select>
+                            </div>
+                            <div id="chqInfo">
+                                <div class="form-group">
+                                    <label>Cheque Number</label>
+                                    <input type="text" placeholder="Cheque Number" name="cheque_number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cheque Of Bank</label>
+                                    <select required name="cheque_of_bank" id="cheque_of_bank" class="form-control">
+                                        <option value="3">Select A Bank</option>
+                                        {% for bank in banks %}
+                                            {% if bank.id != 3 %}
+                                                <option value="{{ bank.id }}">{{ bank.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="from-group">
+                                <label>Transaction Date</label> <span class="text-danger">*</span>
+                                <input required id="transaction_date" name="transaction_date" placeholder="Set Transaction Date" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="yyyy-mm-dd">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount</label> <span class="text-danger">*</span>
+                                <input required type="text" data-parsley-type="number" placeholder="Amount" name="amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Money Receipt Number</label> <span class="text-danger">*</span>
+                                <input required type="text" placeholder="Money Receipt Number" name="money_receipt_number" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Is Deposited ?</label> <span class="text-danger">*</span>
+                                <select name="is_deposited" id="is_deposited" class="form-control">
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </div>
+                            <div id="depositInfo">
+                                <div class="form-group">
+                                    <label>Deposite To Bank</label> <span class="text-danger">*</span>
+                                    <select name="deposite_to_bank" id="deposite_to_bank" class="form-control">
+                                        <option value="3">Select A Bank</option>
+                                        {% for bank in banks %}
+                                            {% if bank.id != 3 %}
+                                                <option value="{{ bank.id }}">{{ bank.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deposite To Account</label> <span class="text-danger">*</span>
+                                    <select name="deposite_to_account" id="deposite_to_account" class="form-control">
+                                        <option value="">Select Account</option>
+                                        {% for account in accounts %}
+                                            <option value="{{ account.id }}">{{ account.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="from-group">
+                                    <label>Deposite Date</label> <span class="text-danger">*</span>
+                                    <input id="deposite_date" name="deposite_date" placeholder="Set Deposite Date" data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="yyyy-mm-dd">
+                                </div>
+                            </div>
+                            <div class="from-group">
+                                <label>Attacment</label> <span class="text-danger">*</span>
+                                <input type="file" required name="attached_file" class="form-control" id="attachmentFile">
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

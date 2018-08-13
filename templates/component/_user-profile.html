@@ -1,0 +1,120 @@
+{% load staticfiles %}
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">User Profile</h1>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#myprofile" role="tab" data-toggle="tab">My Profile</a></li>
+                <li><a href="#account" role="tab" data-toggle="tab">Account</a></li>
+            </ul>
+            <div>
+                <div class="tab-content content-profile">
+                    <!-- MY PROFILE -->
+                    <div class="tab-pane fade in active" id="myprofile">
+                        <form enctype="multipart/form-data" method="post" action="{% url 'user-info-update' user.id%}">
+                            <div class="profile-section">
+                                <h2 class="profile-heading">Profile Photo</h2>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="{{ user.profile.user_avatar }}" style="width: 140px; height: 140px;" class="user-photo media-object" alt="User">
+                                    </div>
+                                    <div class="media-body">
+                                        <p>Upload Your Photo.
+                                            <br> <em>Image Should Be At Least 140px X 140px</em></p>
+                                        <input type="file" name="user_avatar" class="form-control-file" id="userAvatar1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-section">
+                                <h2 class="profile-heading">Basic Information</h2>
+                                    {% csrf_token %}
+                                    <div class="clearfix">
+                                        <!-- LEFT SECTION -->
+                                        <div class="card">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input type="text" value="{{ user.first_name }}" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Last Name</label>
+                                                <input type="text" value="{{ user.last_name }}" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <textarea class="form-control" placeholder="Address" id="user_address" name="user_address" rows="3" cols="30">{{ user.profile.user_address }}</textarea>
+                                            </div>
+                                        </div>
+                                        <!-- END LEFT SECTION -->
+                                    </div>
+                                    <p class="margin-top-30">
+                                        <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-default">Cancel</button>
+                                    </p>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END MY PROFILE -->
+                    <!-- ACCOUNT -->
+                    <div class="tab-pane fade" id="account">
+                        <div class="profile-section">
+                            <div class="clearfix">
+                                <!-- LEFT SECTION -->
+                                <div class="left">
+                                    <h2 class="profile-heading">Account Data</h2>
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" class="form-control" value="{{ user.username }}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" value="{{ user.email }}" disabled>
+{#                                        <input type="text" class="form-control" value="{{ user.password }}" disabled>#}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="form-control" value="{{ user.profile.phone_no }}" disabled>
+                                    </div>
+                                </div>
+                                <!-- END LEFT SECTION -->
+                                <!-- RIGHT SECTION -->
+                                <div class="right">
+                                    <form id="password-update-form" method="post" action="{% url 'user-pass-update' user.id%}">
+                                        {% csrf_token %}
+                                        <h2 class="profile-heading">Change Password</h2>
+                                        <div class="form-group">
+                                            <label>New Password</label>
+                                            <div class="input-group col-xs-12">
+                                                <input type="password" required class="form-control" id="password-f" name="password-f" placeholder="Password">
+                                                <div id="showHidePF" class="input-group-addon" style="width: 2.6rem"><i id="showHideIconPF" class="fas fa-eye"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirm New Password</label>
+                                            <div class="input-group col-xs-12">
+                                                <input type="password" required class="form-control" id="password" name="password" data-parsley-equalto="#password-f" placeholder="Password">
+                                                <div id="showHideP" class="input-group-addon" style="width: 2.6rem"><i id="showHideIconP" class="fas fa-eye"></i></div>
+                                            </div>
+                                        </div>
+                                        <p class="margin-top-30">
+                                            <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                            <button type="reset" class="btn btn-default">Cancel</button>
+                                        </p>
+                                    </form>
+                                </div>
+                                <!-- END RIGHT SECTION -->
+                            </div>
+{#                            <p class="margin-top-30">#}
+{#                                <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;#}
+{#                                <button class="btn btn-default">Cancel</button>#}
+{#                            </p>#}
+                        </div>
+                    </div>
+                    <!-- END ACCOUNT -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+    <div class="clearfix"></div>

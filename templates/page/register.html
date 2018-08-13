@@ -1,0 +1,107 @@
+{#{% load staticfiles %}#}
+{% extends 'layout/__base.html' %}
+{% block body %}
+    <div class="wrapper" id="wrapper">
+        <div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box register">
+					<div class="content">
+						<div class="header">
+							<p class="lead">Create An Account</p>
+						</div>
+						<form id="register-form" class="form-auth-small" enctype="multipart/form-data" method="post" novalidate action="{% url 'register' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+								<label for="first_name" class="control-label">First Name </label> <span class="text-danger">*</span>
+								<input type="text" required class="form-control" id="first_name" name="first_name" placeholder="First Name">
+							</div>
+                            <div class="form-group">
+								<label for="last_name" class="control-label">Last Name </label> <span class="text-danger">*</span>
+								<input type="text" required class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+							</div>
+                            <div class="form-group">
+								<label for="username" class="control-label">Username </label> <span class="text-danger">*</span>
+								<input type="text" required class="form-control" id="username" name="username" placeholder="Username">
+							</div>
+                            <div class="form-group">
+								<label for="user_address" class="control-label">Address </label>
+                                <textarea class="form-control" placeholder="Address" id="user_address" name="company_address" rows="3" cols="30"></textarea>
+							</div>
+                            <div class="form-group">
+								<label for="username" class="control-label">Phone No </label> <span class="text-danger">*</span>
+								<input type="text" required class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
+							</div>
+							<div class="form-group">
+								<label for="email" class="control-label">Email </label> <span class="text-danger">*</span>
+								<input type="email" required class="form-control" id="email" name="email" placeholder="Email">
+							</div>
+							<div class="form-group">
+								<label for="password-f" class="control-label">Password </label> <span class="text-danger">*</span>
+								<div class="input-group col-xs-12">
+                                    <input type="password" required class="form-control" id="password-f" name="password-f" placeholder="Password">
+                                    <div id="showHidePF" class="input-group-addon" style="width: 2.6rem"><i id="showHideIconPF" class="fas fa-eye"></i></div>
+                                </div>
+							</div>
+                            <div class="form-group">
+								<label for="password-c" class="control-label">Confirm Password </label> <span class="text-danger">*</span>
+                                <div class="input-group col-xs-12">
+                                    <input type="password" required class="form-control" id="password" name="password" data-parsley-equalto="#password-f" placeholder="Password">
+                                    <div id="showHideP" class="input-group-addon" style="width: 2.6rem"><i id="showHideIconP" class="fas fa-eye"></i></div>
+                                </div>
+							</div>
+                            <div class="from-group">
+                                <label>User Avatar</label>
+                                <input type="file" name="user_avatar" class="form-control" id="userAvatar">
+                            </div>
+							<button type="submit" class="btn btn-primary btn-lg btn-block">REGISTER</button>
+							<div class="bottom">
+								<span class="helper-text">Already Have An Account? <a href="{% url 'login' %}">Login</a></span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("#register-form").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'register' %}',
+                    data: $(this).serialize(),
+                    success: function(data)
+                    {
+                        if (data.error) {
+                            swal({
+                                title: "Error !!!",
+                                text: "Registration Request Failed. Please Try Again",
+                                type: "error",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            swal({
+                                title: "Success :)",
+                                text: "Registered Successfully.",
+                                type: "success",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = '{% url 'login' %}';
+                            },3000)
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load staticfiles %}
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="col-md-12">
+                    <div class="panel-content">
+                        <h2 class="heading"><i class="fas fa-folder-open"></i> Update Bank</h2>
+                        <form enctype="multipart/form-data" id="bank-update-form" method="post" novalidate action="{% url 'bank-update' id=bank.id%}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Bank Name</label> <span class="text-danger">*</span>
+                                <input value="{{ bank.name }}" type="text" placeholder="Bank Name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Branch Name</label>
+                                <input value="{{ bank.branch_name }}" type="text" placeholder="Branch Name" name="branch_name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Bank Info</label>
+                                <textarea class="form-control" placeholder="Bank Info" name="info" rows="3" cols="30">{{ bank.info }}</textarea>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="{% url 'bank-list' %}" class="btn btn-danger">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

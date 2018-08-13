@@ -1,0 +1,77 @@
+{% extends 'layout/__base.html' %}
+{% block body %}
+    <div class="wrapper" id="wrapper">
+        {% include 'component/_navbar.html' %}
+        {% include 'component/_sidebar.html' %}
+        {% include 'component/_payment-form.html' %}
+        {% include 'component/_footer.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $('#customer, #cheque_of_bank, #payment_type, #deposite_to_bank, #deposite_to_account, #is_deposited').select2();
+            $('#payment_date, #transaction_date, #deposite_date').datepicker({
+                todayHighlight: true
+            });
+            $('#chqInfo').hide();
+            $('#depositInfo').hide();
+            $('#payment_type').change(function(){
+                if($('#payment_type').val().toUpperCase() === 'cheque'.toUpperCase()) {
+                    $('#chqInfo').show();
+                } else {
+                    $('#chqInfo').hide();
+                }
+            });
+            $('#is_deposited').change(function(){
+                if($('#is_deposited').val().toUpperCase() === 'yes'.toUpperCase()) {
+                    $('#depositInfo').show();
+                } else {
+                    $('#depositInfo').hide();
+                }
+            });
+
+            $("#payment-create-form").submit(function(e) {
+                e.preventDefault();
+                var form = $('#payment-create-form')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    url: '{% url 'add-payment' %}',
+                    data: data,
+                    success: function(data)
+                    {
+                        if (data.error) {
+                            swal({
+                                title: "Error !!!",
+                                text: "Payment Add Request Failed. Please Try Again",
+                                type: "error",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            swal({
+                                title: "Success :)",
+                                text: "Payment Added Successfully.",
+                                type: "success",
+                                timer: 3000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = '{% url 'payment-list' %}';
+                            },3000)
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

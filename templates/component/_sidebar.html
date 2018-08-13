@@ -1,0 +1,55 @@
+{% load staticfiles %}
+    <!-- LEFT SIDEBAR -->
+		<div id="left-sidebar" class="sidebar">
+			<button type="button" class="btn btn-xs btn-link btn-toggle-fullwidth">
+				<span class="sr-only">Toggle Fullwidth</span>
+				<i class="fa fa-angle-left"></i>
+			</button>
+			<div class="sidebar-scroll">
+				<div class="user-account">
+					<img src="{{ user.profile.user_avatar }}" style="width: 140px; height: 140px;" class="img-responsive img-circle user-photo" alt="User Profile Picture">
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle user-name" data-toggle="dropdown">Hello, <strong>{{ user.first_name }} {{ user.last_name }}</strong> <i class="fa fa-caret-down"></i></a>
+						<ul class="dropdown-menu dropdown-menu-right account">
+							<li><a href="{% url 'profile' %}">My Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+				<nav id="left-sidebar-nav" class="sidebar-nav">
+					<ul id="main-menu" class="metismenu">
+						<li {% if liactive == 1 %}class="active" {% endif %}><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                        <li {% if liactive == 2 %}class="active" {% endif %}>
+							<a href="#" class="has-arrow" aria-expanded="false"><i class="fas fa-calendar-alt"></i> <span>Account</span></a>
+							<ul aria-expanded="true">
+								<li {% if subliactive == 2.1 %}class="active" {% endif %}><a href="{% url 'account-list' %}">Account List</a></li>
+								<li {% if subliactive == 2.2 %}class="active" {% endif %}><a href="{% url 'add-account' %}">Add Account</a></li>
+							</ul>
+						</li>
+                        <li {% if liactive == 3 %}class="active" {% endif %}>
+							<a href="#" class="has-arrow" aria-expanded="false"><i class="fas fa-university"></i> <span>Bank</span></a>
+							<ul aria-expanded="true">
+								<li {% if subliactive == 3.1 %}class="active" {% endif %}><a href="{% url 'bank-list' %}">Bank List</a></li>
+								<li {% if subliactive == 3.2 %}class="active" {% endif %}><a href="{% url 'add-bank' %}">Add Bank</a></li>
+							</ul>
+						</li>
+                        <li {% if liactive == 4 %}class="active" {% endif %}>
+							<a href="#" class="has-arrow" aria-expanded="false"><i class="fas fa-users"></i> <span>Customer</span></a>
+							<ul aria-expanded="true">
+								<li {% if subliactive == 4.1 %}class="active" {% endif %}><a href="{% url 'customer-list' %}">Customer List</a></li>
+								<li {% if subliactive == 4.2 %}class="active" {% endif %}><a href="{% url 'add-customer' %}">Add Customer</a></li>
+							</ul>
+						</li>
+                        <li {% if liactive == 5 %}class="active" {% endif %}>
+							<a href="#" class="has-arrow" aria-expanded="false"><i class="far fa-credit-card"></i> <span>Payment</span></a>
+							<ul aria-expanded="true">
+								<li {% if subliactive == 5.1 %}class="active" {% endif %}><a href="{% url 'payment-list' %}">Payment List</a></li>
+								<li {% if subliactive == 5.2 %}class="active" {% endif %}><a href="{% url 'add-payment' %}">Add Payment</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- END LEFT SIDEBAR -->

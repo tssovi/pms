@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="col-md-12">
+                <table id="datatable_payment" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Customer Name</th>
+                        <th>Payment Date</th>
+                        <th>Payment Type</th>
+                        <th>Cheque Number</th>
+                        <th>Cheque Of Bank</th>
+                        <th>Transaction Date</th>
+                        <th>Amount</th>
+                        <th>Money Receipt Number</th>
+                        <th>Deposite To Bank</th>
+                        <th>Deposite To Account</th>
+                        <th>Deposite Date</th>
+                        <th>Attached File</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>SL</th>
+                        <th>Customer Name</th>
+                        <th>Payment Date</th>
+                        <th>Payment Type</th>
+                        <th>Cheque Number</th>
+                        <th>Cheque Of Bank</th>
+                        <th>Transaction Date</th>
+                        <th>Amount</th>
+                        <th>Money Receipt Number</th>
+                        <th>Deposite To Bank</th>
+                        <th>Deposite To Account</th>
+                        <th>Deposite Date</th>
+                        <th>Attached File</th>
+                        <th>Created</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td></td>
+                        <td>{{ payment.customer.name }}</td>
+                        <td>{{ payment.payment_date|date:"D, d F, Y" }}</td>
+                        <td>{{ payment.payment_type }}</td>
+                        <td>{{ payment.cheque_number }}</td>
+                        <td>{{ payment.cheque_of_bank }}</td>
+                        <td>{{ payment.transaction_date|date:"D, d F, Y" }}</td>
+                        <td>{{ payment.amount }}</td>
+                        <td>{{ payment.money_receipt_number }}</td>
+                        <td>{{ payment.deposite_to_bank }}</td>
+                        <td>{{ payment.deposite_to_account }}</td>
+                        <td>{{ payment.deposite_date|date:"D, d F, Y" }}</td>
+                        <td>
+                            <a href="{{ payment.attached_file }}" class="btn bg-primary">Download</a>
+                        </td>
+                        <td>{{ payment.created_at|date:"D, d F, Y" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

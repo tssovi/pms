@@ -1,0 +1,23 @@
+{% extends 'layout/__base.html' %}
+{% block body %}
+    <div class="wrapper" id="wrapper">
+        {% include 'component/_navbar.html' %}
+        {% include 'component/_sidebar.html' %}
+        {% include 'component/_payment-table.html' %}
+        {% include 'component/_footer.html' %}
+    </div>
+{% endblock %}
+
+{#{% block js %}#}
+{#    {{ block.super }}#}
+{#    <script>#}
+{##}
+{#        $('#datatable_payment').DataTable( {#}
+{#            dom: 'Bfrtip',#}
+{#            buttons: [#}
+{#                'copy', 'excel', 'pdf'#}
+{#            ],#}
+{#            responsive: true#}
+{#        } );#}
+{#    </script>#}
+{#{% endblock %}#}
